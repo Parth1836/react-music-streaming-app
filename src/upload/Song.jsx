@@ -11,10 +11,9 @@ import {
   InputLabel,
   FormControl,
   useTheme,
-  TableContainer,
 } from "@mui/material";
 import { makeStyles } from "@material-ui/core/styles";
-import { uploadSong } from "../mock-backend-apis/UploadSong";
+import { deleteSong, uploadSong } from "../mock-backend-apis/Song";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -57,8 +56,9 @@ function getStyles(name, selectedArtists, theme) {
   };
 }
 
-function Song(props) {
-  const { songsList, setSongsList } = props;
+function Song() {
+  const [songsList, setSongsList] = useState([]);
+  const [posterUrl, setPosterUrl] = useState("");
   const classes = useStyles();
   const theme = useTheme();
   const [songName, setSongName] = useState("");
@@ -70,7 +70,7 @@ function Song(props) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [error, setError] = useState("");
 
-  useEffect(() => {
+  const loadMasterData = () => {
     const tempArtist = localStorage?.getItem("artistList");
     console.log("artists", JSON.parse(tempArtist));
     if (!tempArtist) {
@@ -78,6 +78,12 @@ function Song(props) {
     } else {
       setArtistList(JSON.parse(tempArtist));
     }
+    const tempList = JSON.parse(localStorage.getItem("songsList"));
+    console.log("tempList", tempList);
+    setSongsList(tempList);
+  };
+  useEffect(() => {
+    loadMasterData();
   }, []);
 
   const handleFileChange = (event) => {
@@ -104,11 +110,12 @@ function Song(props) {
   };
 
   const handleUpload = () => {
-    if (songName && songFile && artistIds?.length > 0) {
+    if (songName && songFile && artistIds?.length > 0 && posterUrl) {
       const token = localStorage.getItem("clientUserToken");
       const songObject = {
         file: songFile,
         songName: songName,
+        posterUrl,
         artist: artistNames,
       };
       const artistArr = artistIds;
@@ -123,12 +130,13 @@ function Song(props) {
       if (res.length > 0) {
         setSongsList(res);
         resetState();
-      } else {
-        setError("Please try to upload your song again");
-      }
+      } 
+      // else {
+      //   setError("Please try to upload your song again");
+      // }
     } else {
       setError(
-        "Please fill all mandatory fields like Song Name, Select File & Artist"
+        "Please fill all mandatory fields like Song Name, Song Poster URL, Select File & Artist"
       );
     }
   };
@@ -143,6 +151,22 @@ function Song(props) {
     setSongFile(null);
     setSongName("");
     setSelectedFile(null);
+    setPosterUrl("");
+  };
+
+  const handleDeleteSong = (songId) => {
+    console.log("77 delete", songId);
+    const token = localStorage.getItem("clientUserToken");
+    const body = {
+      token,
+      songId,
+    };
+    const res = deleteSong(body);
+    if (res?.length > 0) {
+      setSongsList(res);
+    } else {
+      alert("Some error occured!");
+    }
   };
 
   return (
@@ -150,7 +174,7 @@ function Song(props) {
       <Paper
         elevation={3}
         className={classes.paper}
-        style={{ width: "50%", height: "350px" }}
+        style={{ width: "50%", height: "400px" }}
       >
         <Typography variant="h6">Song Upload</Typography>
         <div
@@ -172,6 +196,27 @@ function Song(props) {
             autoComplete="songName"
             onChange={(e) => setSongName(e.target.value)}
             value={songName}
+          />
+        </div>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            width: "75%",
+          }}
+        >
+          <Typography style={{ width: "30%" }}>Poster URL</Typography>
+          <TextField
+            variant="outlined"
+            margin="normal"
+            required
+            fullWidth
+            id="songImage"
+            label="Poster URL"
+            name="songImage"
+            autoComplete="songImage"
+            onChange={(e) => setPosterUrl(e.target.value)}
+            value={posterUrl}
           />
         </div>
         <div
@@ -260,6 +305,45 @@ function Song(props) {
           <h3 style={{ color: "red" }}>{error}</h3>
         </div>
       </Paper>
+      {songsList && songsList.length && (
+        <>
+          <h2 style={{ textAlign: "center" }}>Songs List</h2>
+          <table
+            style={{
+              width: "90%",
+              margin: "10px auto",
+              textAlign: "center",
+            }}
+          >
+            <tr>
+              <th>Id</th>
+              <th>Song Name</th>
+              <th>Artist</th>
+              <th></th>
+            </tr>
+            {songsList &&
+              songsList?.map((song) => (
+                <tr>
+                  <td>{song.id}</td>
+                  <td>{song.songName}</td>
+                  <td>{song.artist}</td>
+                  <td>
+                    <Button
+                      type="submit"
+                      fullWidth
+                      variant="contained"
+                      color="primary"
+                      style={{ width: "40%", margin: "10px" }}
+                      onClick={() => handleDeleteSong(song.id)}
+                    >
+                      Delete
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+          </table>
+        </>
+      )}
     </Container>
   );
 }

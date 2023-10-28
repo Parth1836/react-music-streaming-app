@@ -3,6 +3,7 @@ import Header from "../common-components/Header";
 import SongsList from "./SongsList";
 import AlbumList from "./AlbumList";
 import { useNavigate } from "react-router-dom";
+import ArtistList from "./ArtistList";
 function Dashboard() {
   const navigate = useNavigate();
 
@@ -17,7 +18,8 @@ function Dashboard() {
     <>
       <Header />
       <SongsList />
-      <AlbumList />
+      <ArtistList />
+      {/* <AlbumList /> */}
     </>
   );
 }

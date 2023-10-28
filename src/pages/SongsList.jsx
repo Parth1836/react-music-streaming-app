@@ -11,7 +11,6 @@ import {
   MenuItem,
   Modal,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
 import SongPhoto from "../assets/songImage.jpg";
@@ -31,15 +30,15 @@ function SongsList() {
   const [open, setOpen] = useState(false);
   const [songsList, setSongsList] = useState([]);
   const [playingMp33File, setPlayingMp33File] = useState(null);
-  const [playlistArr, setPlaylistArr] = useState([]);
-  const [selectedPlaylist, setSelectedPlaylist] = useState("");
-  const [playlistName, setPlaylistName] = useState("");
+  // const [playlistArr, setPlaylistArr] = useState([]);
+  // const [selectedPlaylist, setSelectedPlaylist] = useState("");
+  // const [playlistName, setPlaylistName] = useState("");
 
   useEffect(() => {
     const tempList = JSON.parse(localStorage.getItem("songsList"));
     setSongsList(tempList);
     const tempPlaylist = JSON.parse(localStorage.getItem("playlist"));
-    setPlaylistArr(tempPlaylist);
+    //setPlaylistArr(tempPlaylist);
   }, []);
 
   const playSong = (id) => {
@@ -67,12 +66,12 @@ function SongsList() {
                     justifyContent: "flex-start",
                     cursor: "pointer",
                   }}
-                  onClick={() => playSong(idx + 1)}
+                  onClick={() => playSong(song?.id)}
                 >
                   <Card sx={{ width: 250 }}>
                     <CardMedia
                       sx={{ height: 200 }}
-                      image={SongPhoto}
+                      image={song?.posterUrl}
                       title="green iguana"
                     />
                     <CardContent className="movie-card-content">
@@ -119,7 +118,7 @@ function SongsList() {
           </div>
         )}
       </div>
-      <Modal
+      {/* <Modal
         open={open}
         onClose={() => setOpen(false)}
         aria-labelledby="modal-modal-title"
@@ -145,7 +144,7 @@ function SongsList() {
             Submit
           </Button>
         </Box>
-      </Modal>
+      </Modal> */}
     </>
   );
 }

@@ -5,7 +5,8 @@ import Register from "./pages/Register";
 import AdminPage from "./pages/AdminPage";
 import ContactUs from "./common-components/ContactUs";
 import { useEffect } from "react";
-import { ARTIST_LIST, USER_DETAILS } from "./mock-data/loginCredentials";
+import { USER_DETAILS } from "./mock-data/loginCredentials";
+import { ARTIST_LIST } from "./mock-data/Artist";
 
 function MainRoutes() {
   useEffect(() => {
