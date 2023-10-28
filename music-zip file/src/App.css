@@ -1,0 +1,28 @@
+.song-title {
+  font-size: 1.5em;
+  font-weight: bold;
+  font-family: Arial;
+  margin: 15px;
+  line-height: 1.6em;
+  text-align: left;
+}
+
+.song-singer {
+  font-size: 1.3em;
+  font-family: Arial;
+  color: slategray;
+  text-align: left;
+  margin: 15px;
+  font-weight: lighter;
+}
+
+.admin-btns {
+  margin: 10px;
+  height: 40px;
+  width: 150px;
+}
+
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
