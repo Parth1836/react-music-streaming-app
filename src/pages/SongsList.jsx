@@ -44,7 +44,7 @@ function SongsList() {
   const playSong = (id) => {
     const tempFile = songsList?.find((song) => song.id === id);
     console.log("tempFile", tempFile);
-    setPlayingMp33File(tempFile.file);
+    setPlayingMp33File(tempFile);
   };
 
   const handlePlaylistChange = (event) => {
@@ -97,27 +97,33 @@ function SongsList() {
             <h2 style={{ paddingLeft: "25px" }}>No Songs Found</h2>
           )}
         </Grid>
-        {playingMp33File && (
-          <div
-            style={{
-              position: "fixed",
-              bottom: "10px",
-              display: "flex",
-              justifyContent: "center",
-              width: "100%",
-            }}
-          >
+        
+      </div>
+      {playingMp33File && (
+        <div
+          style={{
+            position: "fixed",
+            bottom: "0px",
+            display: "flex",
+            justifyContent: "center",
+            width: "100%",
+            backgroundColor: "darkgray",
+            height: "110px",
+          }}
+        >
+          <div style={{width:"70%"}}>
+            <h3 style={{margin:"10px", textAlign:"center"}}>Playing - {playingMp33File?.songName}</h3>
             <audio
               style={{ width: "90%" }}
               id="dsw"
               type="audio/mp3"
               autobuffer="autobuffer"
               controls
-              src={playingMp33File}
+              src={playingMp33File?.file}
             />
           </div>
-        )}
-      </div>
+        </div>
+      )}
       {/* <Modal
         open={open}
         onClose={() => setOpen(false)}

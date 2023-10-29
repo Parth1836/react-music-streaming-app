@@ -7,6 +7,7 @@ import ContactUs from "./common-components/ContactUs";
 import { useEffect } from "react";
 import { USER_DETAILS } from "./mock-data/loginCredentials";
 import { ARTIST_LIST } from "./mock-data/Artist";
+import ArtistSongs from "./pages/ArtistSongs";
 
 function MainRoutes() {
   useEffect(() => {
@@ -30,6 +31,7 @@ function MainRoutes() {
         <Route path="/register" element={<Register />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/contact-us" element={<ContactUs />} />
+        <Route path="/artist-songs" element={<ArtistSongs />} />
       </Routes>
     </BrowserRouter>
   );

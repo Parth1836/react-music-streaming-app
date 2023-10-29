@@ -1,13 +1,9 @@
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { Card, CardContent, CardMedia, Grid, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function ArtistList() {
+  const navigate = useNavigate();
   const [artistList, setArtistList] = useState([]);
   useEffect(() => {
     const tempArtistList = localStorage.getItem("artistList")
@@ -30,7 +26,7 @@ function ArtistList() {
                   justifyContent: "flex-start",
                   cursor: "pointer",
                 }}
-                //onClick={() => playSong(idx + 1)}
+                onClick={() => navigate("/artist-songs?artist=" + artist?.id)}
               >
                 <Card sx={{ width: 250 }}>
                   <CardMedia
