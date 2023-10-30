@@ -23,8 +23,8 @@ const useStyles = makeStyles((theme) => ({
 function Login() {
   const classes = useStyles();
 
-  const [email, setEmail] = useState("test@gmail.com");
-  const [password, setPassword] = useState("test@123");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [error, setError] = useState({
     email: "",
     password: "",

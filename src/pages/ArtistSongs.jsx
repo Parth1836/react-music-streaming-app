@@ -40,10 +40,10 @@ function ArtistSongs() {
   return (
     <>
       <Header />
+      <div style={{marginTop:"6%"}}>
       <h2 style={{ padding: "5px 0px 0px 20px", textAlign: "center" }}>
         Songs by Artist - {artist?.artistName}
-      </h2>
-      <div>
+      </h2>    
         {songsList.length > 0 ? (
           songsList?.map((song) => (
             <div
@@ -66,7 +66,7 @@ function ArtistSongs() {
             No songs found for {artist?.artistName}
           </h2>
         )}
-      </div>
+   
       {playingMp33File && (
         <div
           style={{
@@ -94,6 +94,8 @@ function ArtistSongs() {
           </div>
         </div>
       )}
+      </div>
+      
     </>
   );
 }

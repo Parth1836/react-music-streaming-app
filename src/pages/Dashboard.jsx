@@ -17,8 +17,10 @@ function Dashboard() {
   return (
     <>
       <Header />
+      <div style={{marginTop:"6%"}}>
       <SongsList />
       <ArtistList />
+      </div>   
       {/* <AlbumList /> */}
     </>
   );

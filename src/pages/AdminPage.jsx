@@ -15,7 +15,7 @@ function AdminPage() {
     <>
       <Header />
       <div
-        style={{ display: "flex", justifyContent: "center", margin: "25px" }}
+        style={{ display: "flex", justifyContent: "center", margin: "25px", marginTop:"6%" }}
       >
         <Button
           type="submit"
